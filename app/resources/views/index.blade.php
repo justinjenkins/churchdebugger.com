@@ -27,7 +27,7 @@
                 </div>
 
                 <h6 class="title is-6">
-                    I bet you are interested in <a href="https://github.com/justinjenkins" target="_blank">https://github.com/justinjenkins/churchdebugger.com</a>
+                    I bet you are interested in <a href="https://github.com/justinjenkins/churchdebugger.com" target="_blank">the source</a>.
                 </h6>
 
             </div>
