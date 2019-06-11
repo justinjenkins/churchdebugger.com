@@ -27,7 +27,7 @@
                 </div>
 
                 <h6 class="title is-6">
-                    I bet you are interested in <a href="https://github.com/justinjenkins" target="_blank">https://github.com/justinjenkins</a>
+                    I bet you are interested in <a href="https://github.com/justinjenkins" target="_blank">https://github.com/justinjenkins/churchdebugger.com</a>
                 </h6>
 
             </div>
@@ -37,7 +37,7 @@
             <nav class="tabs is-boxed is-fullwidth">
                 <div class="container">
                     <ul>
-                        <li><a href="https://github.com/justinjenkins" target="_blank"><i class="fab fa-github"></i>&nbsp;GitHub</a></li>
+                        <li><a href="https://github.com/justinjenkins/churchdebugger.com" target="_blank"><i class="fab fa-github"></i>&nbsp;GitHub</a></li>
                         <li><a href="https://www.linkedin.com/in/thejustinjenkins/" target="_blank"><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</a></li>
                     </ul>
                 </div>
