@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TwitterServiceProvider::class,
         App\Providers\UnsplashServiceProvider::class,
+        App\Providers\TwilioServiceProvider::class,
 
     ],
 
