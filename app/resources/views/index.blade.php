@@ -25,12 +25,14 @@
                     <a class="button is-large is-white" href="https://twitter.com/intent/tweet?text=@versesee" target="_blank"><i class="fab fa-twitter"></i>&nbsp;@versesee</a>
                     <a class="button is-large is-white" href="sms://+17194284282"><i class="fas fa-mobile-alt"></i>&nbsp;versesee</a>
                 </div>
-
-                <h6 class="title is-6">
-                    I bet you are interested in <a href="https://github.com/justinjenkins/churchdebugger.com" target="_blank">the source</a>.
+                <p>&nbsp;</p>
+                <h6 class="title is-5">
+                    I bet you are interested in the <a class="button is-small is-dark" href="https://github.com/justinjenkins/churchdebugger.com" target="_blank"><span class="icon is-small"><i class="fab fa-github"></i></span><span>source</span></a>
                 </h6>
 
             </div>
+
+
         </div>
 
         <div class="hero-foot">
