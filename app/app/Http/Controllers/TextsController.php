@@ -39,7 +39,7 @@ class TextsController extends Controller
         $twiml = new Twiml();
 
         $response = $twiml->respond_with_text("📖",[
-            "media" => "https://local.churchdebugger.com/images/1/?term=".urlencode("{$text_sent}"),
+            "media" => request()->getSchemeAndHttpHost()."/images/1/?term=".urlencode("{$text_sent}"),
             "text_sent" => $text_sent
         ]);
 
