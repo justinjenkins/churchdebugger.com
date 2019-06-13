@@ -26,13 +26,29 @@ class ESV {
 
         $params = $params + $defaults;
 
-        $response = $this->client->get($this->passage_uri."{$term}");
+        $passages = null;
 
-        $passages = json_decode($response->getBody()->getContents())->results;
+        try {
+            $response = $this->client->get($this->passage_uri."{$term}");
+        } catch (GuzzleHttp\Exception\ClientException  $exception) {
+            $response = $exception->getResponse();
+        }
 
-        // @todo handle this better
+        $contents = json_decode($response->getBody()->getContents());
+
+        if ($response->getStatusCode() == 200 && $contents->total_results != 0) {
+            $passages = $contents->results;
+        }
+
+        // @todo handle this better ... if we get an error it just searches for a bible verse with "error" in it :)
         if (!$passages) {
-            return "";
+
+            if ($params["passage_and_reference"]) {
+                return [];
+            } else {
+                return "error";
+            }
+
         }
 
         $passage = $passages[mt_rand(0,count($passages)-1)];
