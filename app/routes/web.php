@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::match(['get', 'post'], '/webhooks/twilio/message', 'TextsController@store');
+
 Route::resource('images', 'ImagesController');
