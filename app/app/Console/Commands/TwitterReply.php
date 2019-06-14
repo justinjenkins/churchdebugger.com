@@ -75,7 +75,7 @@ class TwitterReply extends Command
             // for now we'll just pick an random word from the tweet
             return Words::random($text_cleanup);
         });
-        
+
         $mentions->each(function ($mention, $index) use ($texts) {
 
             $term = $texts[$index];
