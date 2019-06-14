@@ -6,9 +6,9 @@ This is a placeholder for fun little projects by me, [Justin Jenkins](<https://w
 
 VerseSee is bot that will respond to a word sent to it with an image with a Bible verse super imposed over it.
 
-![](https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example.jpg?raw=true)
+![](https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example.jpg?raw=true)
 
-
+<img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-1.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-2.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-3.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-4.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-5.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-6.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-7.jpg?raw=true" width="200"><img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example/example-8.jpg?raw=true" width="200">
 
 ##### How does it work?
 
