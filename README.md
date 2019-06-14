@@ -6,7 +6,7 @@ This is a placeholder for fun little project for me, Justin Jenkins.
 
 Verse See is bot that will respond to a word sent to it with an image with a Bible verse super imposed over it.
 
-![](C:\Sites\local.churchdebugger.com\app\public\example.jpg)
+![](https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/example.jpg?raw=true)
 
 
 
