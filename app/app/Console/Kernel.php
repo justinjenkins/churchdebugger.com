@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('twitter:reply')->everyMinute();
+        $schedule->command('twitter:reply')
+            ->everyMinute()
+            ->appendOutputTo(storage_path('logs/twitter_reply.log'));;
     }
 
     /**
