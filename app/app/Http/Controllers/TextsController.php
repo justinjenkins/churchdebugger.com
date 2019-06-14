@@ -36,6 +36,10 @@ class TextsController extends Controller
 
         $text_sent = (isset($request->all()["Body"]) ? $request->all()["Body"] : null);
 
+        $text = new Text;
+        $text->text_sent = $text_sent;
+        $text->save();
+
         $twiml = new Twiml();
 
         $response = $twiml->respond_with_text("📖",[
