@@ -36,7 +36,7 @@ class ImageGenerate implements ShouldQueue
     public function handle()
     {
         echo ">> Creating image for {$this->twitter_id}\n";
-        Images::test($this->term, $this->twitter_id, false);
+        Images::generate($this->term, $this->twitter_id, false);
         echo ">> Done\n";
     }
 }

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Common\Images;
-use App\Common\ESV;
-use App\Common\Twilio;
 use Illuminate\Http\Request;
 
 class ImagesController extends Controller
@@ -52,7 +50,7 @@ class ImagesController extends Controller
     {
         $term = $request->query('term');
         $tid = $request->query('tid');
-        return Images::test($term, $tid);
+        return Images::generate($term, $tid);
     }
 
     /**

@@ -7,18 +7,11 @@ use ImagickDraw;
 
 class Images {
 
-
-    //const
-
-    protected $unsplash;
-
-    public static function test(string $term=null, string $tid=null, bool $return_image=true) {
-
-        //echo "images -> test ({$term} | {$tid})";
+    public static function generate(string $term=null, string $tid=null, bool $return_image=true) {
 
         $photo = "https://versesee.com/default_image.jpg";
 
-        if ($tid && file_exists("public/cache/image-{$tid}.jpg") && $return_image) {
+        if ($tid && file_exists(public_path()."/cache/image-{$tid}.jpg") && $return_image) {
             header('Content-Type: image/jpg');
             return readfile("cache-{$tid}.jpg");
         }
@@ -69,15 +62,13 @@ class Images {
         $image->compositeImage($reference, Imagick::COMPOSITE_OVER, 0, 550);
 
         if ($tid) {
-            $image->writeImage("public/cache/image-{$tid}.jpg");
+            $image->writeImage(public_path()."/cache/image-{$tid}.jpg");
         }
 
         if ($return_image) {
             header('Content-type: image/jpg');
             echo $image;
         }
-
-        //return "\n>> image {$tid}->`{$term}` created.\n";
 
     }
 
@@ -126,48 +117,6 @@ class Images {
         $text_foreground->colorizeImage('#FFFFFF',1, true);
 
         return $text_foreground;
-
-    }
-
-    public static function overlay_text($image, $text) {
-
-        $image = new Imagick();
-        $draw = new ImagickDraw();
-        $image = new Imagick('https://local.churchdebugger.com/field.jpg');
-
-        /* Black text */
-        $draw->setFillColor('white');
-        //$draw->setTextUnderColor ('#00000080');
-
-        $draw->setGravity (Imagick::GRAVITY_CENTER);
-
-        /* Font properties */
-        $draw->setFont('Bookman-Demi');
-        //$draw->setFontSize( 70 );
-
-        $texts = [];
-
-        $texts[] = "Do not be afraid of sudden terror
-  or of the ruin of the wicked, when it comes,
-for the LORD will be your confidence
-  and will keep your foot from being caught.
-  
- Proverbs 3:25-26 (ESV)";
-
-        $texts[] = "Do not be afraid of sudden terror or of the ruin of the wicked, when it comes, for the LORD will be your confidence and will keep your foot from being caught. Proverbs 3:25-26 (ESV)";
-
-        /* Create text */
-        $image->annotateImage($draw, 0, 50, 0, $texts[1]);
-
-        //$image->labelImage($texts[1]);
-
-        /* Give image a format */
-        $image->setImageFormat('jpg');
-
-        /* Output the image with headers */
-        header('Content-type: image/jpg');
-        echo $image;
-
 
     }
 
