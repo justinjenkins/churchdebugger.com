@@ -25,15 +25,14 @@ class TwitterReplier implements ShouldQueue {
      *
      * @var int
      */
-    public $timeout = 15;
+    public $timeout = 300;
 
     /**
      * The number of times the job may be attempted.
      *
      * @var int
      */
-    public $tries = 2;
-
+    public $tries = 1;
 
     /**
      * Create a new job instance.

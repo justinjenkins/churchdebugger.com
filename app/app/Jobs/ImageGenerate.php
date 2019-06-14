@@ -18,6 +18,20 @@ class ImageGenerate implements ShouldQueue
     public $term;
 
     /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 120;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 2;
+
+    /**
      * Create a new job instance.
      *
      * @return void
