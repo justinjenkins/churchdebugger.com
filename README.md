@@ -8,9 +8,9 @@ VerseSee is bot that will respond to a word sent to it with an image with a Bibl
 
 ![](https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example.jpg?raw=true)
 
-<img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-1.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-2.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-3.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-4.jpg?raw=true" width="200">
+<img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-3.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-1.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-4.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-2.jpg?raw=true" width="210">
 
-<img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-5.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-6.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-7.jpg?raw=true" width="200"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-8.jpg?raw=true" width="200">
+<img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-7.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-5.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-8.jpg?raw=true" width="210"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-6.jpg?raw=true" width="210"> 
 
 ##### How does it work?
 
