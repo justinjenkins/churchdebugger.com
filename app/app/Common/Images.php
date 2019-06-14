@@ -5,8 +5,6 @@ namespace App\Common;
 use Imagick;
 use ImagickDraw;
 
-use App\Common\ESV;
-
 class Images {
 
 
@@ -14,9 +12,16 @@ class Images {
 
     protected $unsplash;
 
-    public static function test(string $term=null) {
+    public static function test(string $term=null, string $tid=null, bool $return_image=true) {
+
+        //echo "images -> test ({$term} | {$tid})";
 
         $photo = "https://versesee.com/default_image.jpg";
+
+        if ($tid && file_exists("public/cache/image-{$tid}.jpg") && $return_image) {
+            header('Content-Type: image/jpg');
+            return readfile("cache-{$tid}.jpg");
+        }
 
         // get photo from unsplash api based on term.
         $photos = app()->make('unsplash')->photos($term);
@@ -63,8 +68,16 @@ class Images {
         ]);
         $image->compositeImage($reference, Imagick::COMPOSITE_OVER, 0, 550);
 
-        header('Content-type: image/jpg');
-        echo $image;
+        if ($tid) {
+            $image->writeImage("public/cache/image-{$tid}.jpg");
+        }
+
+        if ($return_image) {
+            header('Content-type: image/jpg');
+            echo $image;
+        }
+
+        //return "\n>> image {$tid}->`{$term}` created.\n";
 
     }
 

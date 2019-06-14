@@ -51,7 +51,8 @@ class ImagesController extends Controller
     public function show(Image $image, Request $request)
     {
         $term = $request->query('term');
-        return Images::test($term);
+        $tid = $request->query('tid');
+        return Images::test($term, $tid);
     }
 
     /**
