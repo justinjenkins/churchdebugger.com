@@ -13,7 +13,7 @@ class Images {
 
         if ($tid && file_exists(public_path()."/cache/image-{$tid}.jpg") && $return_image) {
             header('Content-Type: image/jpg');
-            return readfile("cache-{$tid}.jpg");
+            return readfile(public_path()."/cache/image-{$tid}.jpg");
         }
 
         // get photo from unsplash api based on term.
