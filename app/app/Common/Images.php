@@ -9,22 +9,12 @@ class Images {
 
     public static function generate(string $term=null, string $tid=null, bool $return_image=true) {
 
-        $photo = "https://versesee.com/default_image.jpg";
-
         if ($tid && file_exists(public_path()."/cache/image-{$tid}.jpg") && $return_image) {
             header('Content-Type: image/jpg');
             return readfile(public_path()."/cache/image-{$tid}.jpg");
         }
 
-        // get photo from unsplash api based on term.
-        $photos = app()->make('unsplash')->photos($term);
-        $photo_count = $photos->getArrayObject()->count();
-
-        if ($photo_count) {
-            $photo = $photos->getResults()[mt_rand(0,$photo_count-1)]["urls"]["full"]."&w=1080&h=720&fit=crop";
-        }
-
-        $image = new Imagick($photo);
+        $image = new Imagick(Images::image_url_from_term($term));
 
         //$height = $image->getImageHeight();
         //$width = $image->getImageWidth();
@@ -61,6 +51,27 @@ class Images {
         ]);
         $image->compositeImage($reference, Imagick::COMPOSITE_OVER, 0, 550);
 
+
+        // add watermark
+        $watermark_shadow = self::draw_silhouette("versesee", [
+            "rows" => 18,
+            "border_height" => 10,
+            "font" => "AvantGarde-Book",
+            "blur_radius" => 5,
+            "blur_sigma" => 1
+        ]);
+        $image->compositeImage($watermark_shadow, Imagick::COMPOSITE_OVER, 480, 675);
+
+        // add watermark
+        $watermark = self::draw_text("versesee", [
+            "rows" => 18,
+            "border_height" => 10,
+            "font" => "AvantGarde-Book",
+            //Imagick::GRAVITY_SOUTHEAST
+        ]);
+        $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, 480, 675);
+
+
         if ($tid) {
             $image->writeImage(public_path()."/cache/image-{$tid}.jpg");
         }
@@ -72,6 +83,22 @@ class Images {
 
     }
 
+    public static function image_url_from_term($term) {
+
+        $photo = "https://versesee.com/default_image.jpg";
+
+        // get photo from unsplash api based on term.
+        $photos = app()->make('unsplash')->photos($term);
+        $photo_count = $photos->getArrayObject()->count();
+
+        if ($photo_count) {
+            $photo = $photos->getResults()[mt_rand(0,$photo_count-1)]["urls"]["full"]."&w=1080&h=720&fit=crop";
+        }
+
+        return $photo;
+
+    }
+
     private static function draw_silhouette(string $text=null, array $params=array()) {
 
         $defaults = [
@@ -80,15 +107,17 @@ class Images {
             "border_width" => 150,
             "border_height" => 175,
             "blur_radius" => 5,
-            "blur_sigma" => 3
+            "blur_sigma" => 3,
+            "font" => "Bookman-Demi",
+            "gravity" => Imagick::GRAVITY_CENTER,
         ];
 
         $params = $params + $defaults;
 
         $text_shadow = new Imagick();
         $text_shadow->setBackgroundColor('transparent');
-        $text_shadow->setGravity (Imagick::GRAVITY_CENTER);
-        $text_shadow->setFont('Bookman-Demi');
+        $text_shadow->setGravity($params["gravity"]);
+        $text_shadow->setFont($params["font"]);
         $text_shadow->newPseudoImage($params["columns"], $params["rows"], "caption:{$text}");
         $text_shadow->borderImage('transparent', $params["border_width"], $params["border_height"]);
         $text_shadow->colorizeImage('#000000',1, true);
@@ -99,19 +128,22 @@ class Images {
     }
 
     private static function draw_text(string $text=null, array $params=array()) {
+
         $defaults = [
             "columns" => 780, // 1080-300
             "rows" => 370, // 720-350
             "border_width" => 150,
             "border_height" => 175,
+            "font" => "Bookman-Demi",
+            "gravity" => Imagick::GRAVITY_CENTER,
         ];
 
         $params = $params + $defaults;
 
         $text_foreground = new Imagick();
         $text_foreground->setBackgroundColor('transparent');
-        $text_foreground->setGravity (Imagick::GRAVITY_CENTER);
-        $text_foreground->setFont('Bookman-Demi');
+        $text_foreground->setGravity($params["gravity"]);
+        $text_foreground->setFont($params["font"]);
         $text_foreground->newPseudoImage($params["columns"], $params["rows"], "caption:{$text}");
         $text_foreground->borderImage('transparent', $params["border_width"], $params["border_height"]);
         $text_foreground->colorizeImage('#FFFFFF',1, true);
