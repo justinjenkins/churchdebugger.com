@@ -60,7 +60,7 @@ class Images {
             "blur_radius" => 5,
             "blur_sigma" => 1
         ]);
-        $image->compositeImage($watermark_shadow, Imagick::COMPOSITE_OVER, 480, 675);
+        $image->compositeImage($watermark_shadow, Imagick::COMPOSITE_OVER, 475, 670);
 
         // add watermark
         $watermark = self::draw_text("versesee", [
@@ -69,7 +69,7 @@ class Images {
             "font" => "AvantGarde-Book",
             //Imagick::GRAVITY_SOUTHEAST
         ]);
-        $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, 480, 675);
+        $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, 475, 670);
 
 
         if ($tid) {
