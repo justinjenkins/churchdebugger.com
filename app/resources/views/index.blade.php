@@ -72,7 +72,45 @@
 
                 <h6 class="title is-6"><span class="tag">VerseSee does not track your phone number</span></h6>
 
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <figure class="image is-3by2">
+                                <img src="https://versesee.com/examples/example-3.jpg">
+                            </figure>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <figure class="image is-3by2">
+                                <img src="https://versesee.com/examples/example-1.jpg">
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <figure class="image is-3by2">
+                                <img src="https://versesee.com/examples/example-7.jpg">
+                            </figure>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <figure class="image is-3by2">
+                                <img src="https://versesee.com/examples/example-8.jpg">
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+
+
             </div>
+
+
+
 
 
         </div>
