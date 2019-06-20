@@ -17,4 +17,10 @@ Route::get('/', function () {
 
 Route::match(['get', 'post'], '/webhooks/twilio/message', 'TextsController@store');
 
+
+Route::get('/{imageid}', 'ImagesController@show')->where('imageid', '^[a-zA-Z0-9]{8}$');
+
+// return just the image.
+Route::get('/images/{imageid}.jpg', 'ImagesController@download')->where('imageid', '^[a-zA-Z0-9]{8}$');
+
 Route::resource('images', 'ImagesController');
