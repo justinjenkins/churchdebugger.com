@@ -18,7 +18,7 @@ class ESV {
         $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token ".env("ESV_TOKEN")]]);
     }
 
-    public function passage_search(string $term, array $params=[]) {
+    public function passage_search(string $message, array $params=[]) {
 
         $defaults = [
             "passage_and_reference" => false
@@ -29,7 +29,7 @@ class ESV {
         $passages = null;
 
         try {
-            $response = $this->client->get($this->passage_uri."{$term}");
+            $response = $this->client->get($this->passage_uri."{$message}");
         } catch (GuzzleHttp\Exception\ClientException  $exception) {
             $response = $exception->getResponse();
         }
@@ -60,12 +60,12 @@ class ESV {
         return $passage->content;
     }
 
-    public function passage(string $term) {
-        return $this->passage_search($term);;
+    public function passage(string $message) {
+        return $this->passage_search($message);;
     }
 
-    public function passage_with_reference(string $term) {
-        return $this->passage_search($term, ["passage_and_reference" => true]);
+    public function passage_with_reference(string $message) {
+        return $this->passage_search($message, ["passage_and_reference" => true]);
     }
 
 }

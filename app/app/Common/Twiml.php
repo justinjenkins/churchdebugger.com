@@ -15,7 +15,7 @@ class Twiml {
     public function respond_with_text(string $response_text, array $params) {
 
         $defaults = array (
-            "text_sent" => null,
+            "message" => null,
             "media" => null,
         );
 

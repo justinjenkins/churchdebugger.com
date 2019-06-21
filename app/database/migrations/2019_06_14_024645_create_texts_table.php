@@ -14,8 +14,8 @@ class CreateTextsTable extends Migration
     public function up()
     {
         Schema::create('texts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('text_sent');
+            $table->increments('id');
+            $table->string('message');
             $table->timestamps();
         });
     }

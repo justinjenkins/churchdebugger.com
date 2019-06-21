@@ -15,7 +15,7 @@ class ImageGenerate implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $twitter_id;
-    public $term;
+    public $message;
 
     /**
      * The number of seconds the job can run before timing out.
@@ -36,10 +36,10 @@ class ImageGenerate implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $twitter_id, string $term)
+    public function __construct(string $twitter_id, string $message)
     {
         $this->twitter_id = $twitter_id;
-        $this->term = $term;
+        $this->message = $message;
     }
 
     /**
@@ -50,7 +50,7 @@ class ImageGenerate implements ShouldQueue
     public function handle()
     {
         echo ">> Creating image for {$this->twitter_id}\n";
-        Images::generate($this->term, $this->twitter_id, false);
+        Images::generate($this->message, $this->twitter_id, false);
         echo ">> Done\n";
     }
 }
