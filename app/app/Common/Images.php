@@ -7,14 +7,25 @@ use ImagickDraw;
 
 class Images {
 
-    public static function generate(string $term=null, string $tid=null, bool $return_image=true) {
+    // @todo we need to move this from taking a message to taking each thing individually.
+    // for example passage, reference, image (object, url, or id) to use?
 
-        if ($tid && file_exists(public_path()."/cache/image-{$tid}.jpg") && $return_image) {
-            header('Content-Type: image/jpg');
-            return readfile(public_path()."/cache/image-{$tid}.jpg");
+    public static function generate(string $message=null, string $imageid=null, bool $return_image=true, bool $break_cache=false) {
+
+        $image_name = null;
+
+        if (!$imageid) {
+            $image_name = "image-random-".md5($message);
+        } else {
+            $image_name = "image-{$imageid}";
         }
 
-        $image = new Imagick(Images::image_url_from_term($term));
+        if (!$break_cache && $image_name && file_exists(public_path()."/cache/{$image_name}.jpg") && $return_image) {
+            header('Content-Type: image/jpg');
+            return readfile(public_path()."/cache/{$image_name}.jpg");
+        }
+
+        $image = new Imagick(Images::image_url_from_message($message));
 
         //$height = $image->getImageHeight();
         //$width = $image->getImageWidth();
@@ -23,7 +34,7 @@ class Images {
         //$verse = "The king’s scribes were summoned at that time, in the third month, which is the month of Sivan, on the twenty-third day. And an edict was written, according to all that Mordecai commanded concerning the Jews, to the satraps and the governors and the officials of the provinces from India to Ethiopia, 127 provinces, to each province in its own script and to each people in its own language, and also to the Jews in their script and their language.";
 
         $esv = new ESV;
-        $passage = $esv->passage_with_reference($esv->passage($term));
+        $passage = $esv->passage_with_reference($esv->passage($message));
 
         // @todo change the text color based off the average color of the image??
 
@@ -71,9 +82,11 @@ class Images {
         ]);
         $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, 475, 670);
 
+        // creates a "progressive" JPG that will load better in the browser (sort of "blurs in" as it loads)
+        $image->setInterlaceScheme(Imagick::INTERLACE_PLANE);
 
-        if ($tid) {
-            $image->writeImage(public_path()."/cache/image-{$tid}.jpg");
+        if ($image_name) {
+            $image->writeImage(public_path()."/cache/{$image_name}.jpg");
         }
 
         if ($return_image) {
@@ -83,12 +96,12 @@ class Images {
 
     }
 
-    public static function image_url_from_term($term) {
+    public static function image_url_from_message($message) {
 
         $photo = "https://versesee.com/default_image.jpg";
 
-        // get photo from unsplash api based on term.
-        $photos = app()->make('unsplash')->photos($term);
+        // get photo from unsplash api based on message.
+        $photos = app()->make('unsplash')->photos($message);
         $photo_count = $photos->getArrayObject()->count();
 
         if ($photo_count) {
