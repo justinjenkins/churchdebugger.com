@@ -12,15 +12,11 @@ class ImagesController extends Controller
     {
 
         $message = $request->query('message');
-        $tid = $request->query('tid');
+        $twitter_id = $request->query('tid');
 
-        $image = new Image;
-        $image->imageid = Image::generate_imageid();
-        $image->message = $message;
-        $image->twitter_id = $tid;
-        $image->save();
+        $image = Image::create_base_image($message, $twitter_id);
 
-        Images::generate($message, $image->imageid, false);
+        Images::generate($image->message, $image->imageid, false);
 
         return redirect("/images/".$image->imageid);
 

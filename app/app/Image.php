@@ -44,4 +44,15 @@ class Image extends Model
 
     }
 
+    public static function create_base_image(string $message="", string $twitter_id=null)
+    {
+        $image = new Image;
+        $image->imageid = Image::generate_imageid();
+        $image->message = $message;
+        $image->twitter_id = $twitter_id;
+        $image->save();
+
+        return $image;
+    }
+
 }
