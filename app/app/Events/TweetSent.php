@@ -25,13 +25,9 @@ class TweetSent
      *
      * @return void
      */
-    public function __construct($id, $username, $tweet, $tweet_created_at, $raw_tweet)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->username = $username;
-        $this->tweet = $tweet;
-        $this->tweet_created_at = $tweet_created_at;
-        $this->raw_tweet = $raw_tweet;
     }
 
     /**

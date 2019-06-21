@@ -9,8 +9,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Carbon\Carbon;
-
 
 class TwitterReplier implements ShouldQueue {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -36,10 +34,15 @@ class TwitterReplier implements ShouldQueue {
 
     /**
      * Create a new job instance.
+     * @param $id
+     * @param $screen_name
+     * @param $text
+     * @param null $media_url
      *
      * @return void
      */
-    public function __construct($id, $screen_name, $text, $media_url=null) {
+    public function __construct($id, $screen_name, $text, $media_url=null)
+    {
         $this->id = $id;
         $this->screen_name = $screen_name;
         $this->text = $text;
@@ -49,15 +52,18 @@ class TwitterReplier implements ShouldQueue {
     /**
      * Execute the job.
      *
+     * @param TwitterService $twitter
      * @return void
      */
-    public function handle(TwitterService $twitter) {
+    public function handle(TwitterService $twitter)
+    {
 
         $media_ids = $twitter->upload_media_urls([$this->media_url]);
 
         $twitter->send_tweet("@{$this->screen_name} {$this->text}", $this->id, $media_ids);
 
-        event(new TweetSent($this->id, $this->screen_name, "", Carbon::now()->format('Y-m-d H:i'), "{}"));
+        // @todo we should record the id of the reply tweet sent
+        event(new TweetSent($this->id));
 
         echo ">> Replied to {$this->id}\n";
     }

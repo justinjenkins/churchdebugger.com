@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 
 use App\Common\Images;
+use App\Image;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,7 +15,7 @@ class ImageGenerate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $twitter_id;
+    public $image;
     public $message;
 
     /**
@@ -36,9 +37,9 @@ class ImageGenerate implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $twitter_id, string $message)
+    public function __construct(string $message, Image $image)
     {
-        $this->twitter_id = $twitter_id;
+        $this->image = $image;
         $this->message = $message;
     }
 
@@ -49,8 +50,8 @@ class ImageGenerate implements ShouldQueue
      */
     public function handle()
     {
-        echo ">> Creating image for {$this->twitter_id}\n";
-        Images::generate($this->message, $this->twitter_id, false);
+        echo ">> Creating image for {$this->image->twitter_id}\n";
+        Images::generate($this->message, $this->image->imageid, false);
         echo ">> Done\n";
     }
 }

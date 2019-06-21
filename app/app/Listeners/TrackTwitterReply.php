@@ -3,22 +3,23 @@
 namespace App\Listeners;
 
 use App\Events\TweetSent;
-use App\TweetHistory;
+use App\TwitterMentions;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Carbon\Carbon;
 
 class TrackTwitterReply
 {
-    protected $tweet;
+    protected $mention;
 
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct(TweetHistory $tweet)
+    public function __construct(TwitterMentions $mention)
     {
-        $this->tweet = $tweet;
+        $this->mention = $mention;
     }
 
     /**
@@ -29,12 +30,9 @@ class TrackTwitterReply
      */
     public function handle(TweetSent $event)
     {
-        $this->tweet->create([
-            'twitter_id' => $event->id,
-            'username' => $event->username,
-            'tweet' => $event->tweet,
-            'tweet_created_at' => $event->tweet_created_at,
-            'raw_tweet' => $event->raw_tweet,
-        ]);
+        //$mention = TwitterMentions::first('twitter_id',$event->id);
+        $mention = TwitterMentions::where('twitter_id',$event->id)->first();
+        $mention->processed_at = Carbon::now()->format('Y-m-d H:i');
+        $mention->save();
     }
 }
