@@ -2,17 +2,20 @@
 
 namespace App\Common;
 
-class Twilio {
+class Twilio
+{
 
     protected $twilio;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->twilio = app()->make('twilio');
     }
 
-    public function send_sms(string $number_to, array $params=array()) {
+    public function send_sms(string $number_to, array $params = array())
+    {
 
-        $defaults = array (
+        $defaults = array(
             "from" => env("TWILIO_DEFAULT_PHONE"),
             "body" => "🖐"
         );

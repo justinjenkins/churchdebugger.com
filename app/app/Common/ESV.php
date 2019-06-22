@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Common;
+
 use GuzzleHttp;
 
-class ESV {
+class ESV
+{
 
     protected $client;
 
@@ -14,11 +16,13 @@ class ESV {
 
     private $passage_uri = "https://api.esv.org/v3/passage/search/?page-size=100&q=";
 
-    public function __construct() {
-        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token ".env("ESV_TOKEN")]]);
+    public function __construct()
+    {
+        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token " . env("ESV_TOKEN")]]);
     }
 
-    public function passage_search(string $message, array $params=[]) {
+    public function passage_search(string $message, array $params = [])
+    {
 
         $defaults = [
             "passage_and_reference" => false
@@ -29,7 +33,7 @@ class ESV {
         $passages = null;
 
         try {
-            $response = $this->client->get($this->passage_uri."{$message}");
+            $response = $this->client->get($this->passage_uri . "{$message}");
         } catch (GuzzleHttp\Exception\ClientException  $exception) {
             $response = $exception->getResponse();
         }
@@ -51,7 +55,7 @@ class ESV {
 
         }
 
-        $passage = $passages[mt_rand(0,count($passages)-1)];
+        $passage = $passages[mt_rand(0, count($passages) - 1)];
 
         if ($params["passage_and_reference"]) {
             return $passage;
@@ -60,11 +64,13 @@ class ESV {
         return $passage->content;
     }
 
-    public function passage(string $message) {
+    public function passage(string $message)
+    {
         return $this->passage_search($message);;
     }
 
-    public function passage_with_reference(string $message) {
+    public function passage_with_reference(string $message)
+    {
         return $this->passage_search($message, ["passage_and_reference" => true]);
     }
 

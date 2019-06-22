@@ -2,9 +2,10 @@
 
 namespace App\Common;
 
-class Unsplash {
+class Unsplash
+{
 
-    public static function photo_url_from_id(string $id, array $params=array())
+    public static function photo_url_from_id(string $id, array $params = array())
     {
         $defaults = [
             "width" => "1080",
@@ -31,14 +32,14 @@ class Unsplash {
 
         if ($photo_count) {
             //$photo = $photos->getResults()[mt_rand(0,$photo_count-1)]["urls"]["full"]."&w=1080&h=720&fit=crop";
-            $photo = $photos->getResults()[mt_rand(0,$photo_count-1)];
+            $photo = $photos->getResults()[mt_rand(0, $photo_count - 1)];
         }
 
         return $photo;
 
     }
 
-    public static function image_url_from_photo(array $photo, array $params=array())
+    public static function image_url_from_photo(array $photo, array $params = array())
     {
 
         $defaults = [
@@ -76,7 +77,8 @@ class Unsplash {
         $query_string = $params + $query_string;
         $url_parsed["query"] = http_build_query($query_string);
 
-        function build_url(array $parts) {
+        function build_url(array $parts)
+        {
             return (isset($parts['scheme']) ? "{$parts['scheme']}:" : '') .
                 ((isset($parts['user']) || isset($parts['host'])) ? '//' : '') .
                 (isset($parts['user']) ? "{$parts['user']}" : '') .

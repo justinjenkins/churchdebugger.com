@@ -4,17 +4,20 @@ namespace App\Common;
 
 use Twilio\Twiml as TTwiml;
 
-class Twiml {
+class Twiml
+{
 
     protected $twiml;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->twiml = new TTwiml;
     }
 
-    public function respond_with_text(string $response_text, array $params) {
+    public function respond_with_text(string $response_text, array $params)
+    {
 
-        $defaults = array (
+        $defaults = array(
             "message" => null,
             "media" => null,
         );

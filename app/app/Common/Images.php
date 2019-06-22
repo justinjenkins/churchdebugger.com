@@ -4,20 +4,28 @@ namespace App\Common;
 
 use Imagick;
 
-class Images {
+class Images
+{
 
-    public static function generate(string $imageid, string $background_url, string $passage=null, string $reference=null, bool $return_image=true, bool $break_cache=false) {
+    public static function generate(
+        string $imageid,
+        string $background_url,
+        string $passage = null,
+        string $reference = null,
+        bool $return_image = true,
+        bool $break_cache = false
+    ) {
 
         $image_name = "image-{$imageid}";
 
-        if (!$break_cache && file_exists(public_path()."/cache/{$image_name}.jpg")) {
+        if (!$break_cache && file_exists(public_path() . "/cache/{$image_name}.jpg")) {
 
             if ($return_image) {
                 header('Content-Type: image/jpg');
-                return readfile(public_path()."/cache/{$image_name}.jpg");
+                return readfile(public_path() . "/cache/{$image_name}.jpg");
             }
 
-            return public_path()."/cache/{$image_name}.jpg";
+            return public_path() . "/cache/{$image_name}.jpg";
 
         }
 
@@ -76,7 +84,7 @@ class Images {
         $image->setInterlaceScheme(Imagick::INTERLACE_PLANE);
 
         if ($image_name) {
-            $image->writeImage(public_path()."/cache/{$image_name}.jpg");
+            $image->writeImage(public_path() . "/cache/{$image_name}.jpg");
         }
 
         if ($return_image) {
@@ -86,18 +94,20 @@ class Images {
 
     }
 
-    public static function render(string $imageid) {
+    public static function render(string $imageid)
+    {
 
         $image_name = "image-{$imageid}";
 
-        if (file_exists(public_path()."/cache/{$image_name}.jpg")) {
+        if (file_exists(public_path() . "/cache/{$image_name}.jpg")) {
             header('Content-Type: image/jpg');
-            return readfile(public_path()."/cache/{$image_name}.jpg");
+            return readfile(public_path() . "/cache/{$image_name}.jpg");
         }
 
     }
 
-    private static function draw_silhouette(string $text=null, array $params=array()) {
+    private static function draw_silhouette(string $text = null, array $params = array())
+    {
 
         $defaults = [
             "columns" => 780, // 1080-300
@@ -118,14 +128,15 @@ class Images {
         $text_shadow->setFont($params["font"]);
         $text_shadow->newPseudoImage($params["columns"], $params["rows"], "caption:{$text}");
         $text_shadow->borderImage('transparent', $params["border_width"], $params["border_height"]);
-        $text_shadow->colorizeImage('#000000',1, true);
-        $text_shadow->blurImage($params["blur_radius"],$params["blur_sigma"]);
+        $text_shadow->colorizeImage('#000000', 1, true);
+        $text_shadow->blurImage($params["blur_radius"], $params["blur_sigma"]);
 
         return $text_shadow;
 
     }
 
-    private static function draw_text(string $text=null, array $params=array()) {
+    private static function draw_text(string $text = null, array $params = array())
+    {
 
         $defaults = [
             "columns" => 780, // 1080-300
@@ -144,7 +155,7 @@ class Images {
         $text_foreground->setFont($params["font"]);
         $text_foreground->newPseudoImage($params["columns"], $params["rows"], "caption:{$text}");
         $text_foreground->borderImage('transparent', $params["border_width"], $params["border_height"]);
-        $text_foreground->colorizeImage('#FFFFFF',1, true);
+        $text_foreground->colorizeImage('#FFFFFF', 1, true);
 
         return $text_foreground;
 
