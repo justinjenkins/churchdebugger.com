@@ -8,6 +8,14 @@ use Exception;
 class Image extends Model
 {
 
+    protected $fillable = [
+        'message',
+        'passage_text',
+        'reference',
+        'unsplash_id',
+        'twitter_id'
+    ];
+
     public function twitter_mentions()
     {
         return $this->hasOne('App\TwitterMentions', 'twitter_id', 'twitter_id');
