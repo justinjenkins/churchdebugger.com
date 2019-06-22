@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
@@ -52,7 +52,7 @@ class Image extends Model
 
     }
 
-    public static function create_base_image(string $message="", string $twitter_id=null)
+    public static function create_base_image(string $message = "", string $twitter_id = null)
     {
         $image = new Image;
         $image->imageid = Image::generate_imageid();

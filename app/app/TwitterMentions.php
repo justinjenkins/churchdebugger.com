@@ -15,15 +15,18 @@ class TwitterMentions extends Model
         'processed_at'
     ];
 
-    public function scopeLatestFirst($query) {
+    public function scopeLatestFirst($query)
+    {
         return $query->orderBy('twitter_id', 'desc');
     }
 
-    public function scopeLastProcessed($query) {
+    public function scopeLastProcessed($query)
+    {
         return $query->whereNotNull('processed_at')->orderBy('twitter_id', 'desc')->first();
     }
 
-    public function scopeLatestUnprocessedFirst($query) {
+    public function scopeLatestUnprocessedFirst($query)
+    {
         return $query->whereNull('processed_at')->orderBy('twitter_id', 'desc');
     }
 }
