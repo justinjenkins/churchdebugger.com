@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Common\Words;
 use App\Image;
 use App\Jobs\ImageGenerate;
 use App\Jobs\TwitterMentionProcess;
-use App\TwitterMentions;
 use App\Jobs\TwitterReplier;
-use Illuminate\Console\Command;
-use App\Services\Twitter\TwitterService;
 use App\Services\Twitter\Exceptions\RateLimitExceededException;
-use App\Common\Words;
+use App\Services\Twitter\TwitterService;
+use App\TwitterMentions;
+use Illuminate\Console\Command;
 
 class TwitterReply extends Command
 {
@@ -87,7 +87,7 @@ class TwitterReply extends Command
 
             $image = Image::create_base_image($message, $mention->id);
 
-            $image_url_to_attach = env("APP_URL")."/images/{$image->imageid}.jpg";
+            $image_url_to_attach = env("APP_URL") . "/images/{$image->imageid}.jpg";
 
             // we need to generate the image first and cache it
             // this is because Twitter will timeout if the image
