@@ -3,51 +3,41 @@
 namespace App\Common;
 
 use Imagick;
-use ImagickDraw;
 
 class Images {
 
-    // @todo we need to move this from taking a message to taking each thing individually.
-    // for example passage, reference, image (object, url, or id) to use?
+    public static function generate(string $imageid, string $background_url, string $passage=null, string $reference=null, bool $return_image=true, bool $break_cache=false) {
 
-    public static function generate(string $message=null, string $imageid=null, bool $return_image=true, bool $break_cache=false) {
+        $image_name = "image-{$imageid}";
 
-        $image_name = null;
+        if (!$break_cache && file_exists(public_path()."/cache/{$image_name}.jpg")) {
 
-        if (!$imageid) {
-            $image_name = "image-random-".md5($message);
-        } else {
-            $image_name = "image-{$imageid}";
+            if ($return_image) {
+                header('Content-Type: image/jpg');
+                return readfile(public_path()."/cache/{$image_name}.jpg");
+            }
+
+            return public_path()."/cache/{$image_name}.jpg";
+
         }
 
-        if (!$break_cache && $image_name && file_exists(public_path()."/cache/{$image_name}.jpg") && $return_image) {
-            header('Content-Type: image/jpg');
-            return readfile(public_path()."/cache/{$image_name}.jpg");
-        }
-
-        $image = new Imagick(Images::image_url_from_message($message));
+        $image = new Imagick($background_url);
 
         //$height = $image->getImageHeight();
         //$width = $image->getImageWidth();
 
-        // @todo >> longest verse in the bible >> Esther 8:9
-        //$verse = "The king’s scribes were summoned at that time, in the third month, which is the month of Sivan, on the twenty-third day. And an edict was written, according to all that Mordecai commanded concerning the Jews, to the satraps and the governors and the officials of the provinces from India to Ethiopia, 127 provinces, to each province in its own script and to each people in its own language, and also to the Jews in their script and their language.";
-
-        $esv = new ESV;
-        $passage = $esv->passage_with_reference($esv->passage($message));
-
         // @todo change the text color based off the average color of the image??
 
         // add the text shadow/silhouette first
-        $text_shadow = self::draw_silhouette($passage->content);
+        $text_shadow = self::draw_silhouette($passage);
         $image->compositeImage($text_shadow, Imagick::COMPOSITE_OVER, 0, 0);
 
         // add the text
-        $text = self::draw_text($passage->content);
+        $text = self::draw_text($passage);
         $image->compositeImage($text, Imagick::COMPOSITE_OVER, 0, 0);
 
         // add the reference shadow/silhouette first
-        $reference_shadow = self::draw_silhouette("{$passage->reference} ESV", [
+        $reference_shadow = self::draw_silhouette("{$reference} ESV", [
             "rows" => 25,
             "border_height" => 25,
             "blur_radius" => 3,
@@ -56,7 +46,7 @@ class Images {
         $image->compositeImage($reference_shadow, Imagick::COMPOSITE_OVER, 0, 550);
 
         // add the reference
-        $reference = self::draw_text("{$passage->reference} ESV", [
+        $reference = self::draw_text("{$reference} ESV", [
             "rows" => 25,
             "border_height" => 25
         ]);
@@ -96,19 +86,14 @@ class Images {
 
     }
 
-    public static function image_url_from_message($message) {
+    public static function render(string $imageid) {
 
-        $photo = "https://versesee.com/default_image.jpg";
+        $image_name = "image-{$imageid}";
 
-        // get photo from unsplash api based on message.
-        $photos = app()->make('unsplash')->photos($message);
-        $photo_count = $photos->getArrayObject()->count();
-
-        if ($photo_count) {
-            $photo = $photos->getResults()[mt_rand(0,$photo_count-1)]["urls"]["full"]."&w=1080&h=720&fit=crop";
+        if (file_exists(public_path()."/cache/{$image_name}.jpg")) {
+            header('Content-Type: image/jpg');
+            return readfile(public_path()."/cache/{$image_name}.jpg");
         }
-
-        return $photo;
 
     }
 
