@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-
-use App\Common\Images;
+use App\Common\VerseSee;
 use App\Image;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -35,12 +34,12 @@ class ImageGenerate implements ShouldQueue
     /**
      * Create a new job instance.
      *
+     * @param Image $image
      * @return void
      */
-    public function __construct(string $message, Image $image)
+    public function __construct(Image $image)
     {
         $this->image = $image;
-        $this->message = $message;
     }
 
     /**
@@ -51,7 +50,7 @@ class ImageGenerate implements ShouldQueue
     public function handle()
     {
         echo ">> Creating image for {$this->image->twitter_id}\n";
-        Images::generate($this->message, $this->image->imageid, false);
+        VerseSee::compose_image($this->image);
         echo ">> Done\n";
     }
 }

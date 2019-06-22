@@ -15,10 +15,13 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('imageid')->unique();
-            $table->string('request_text')->nullable();
-            $table->unsignedBigInteger('twitter_history_id')->nullable();
-            $table->foreign('twitter_history_id')->references('id')->on('tweet_history');
+            $table->char('imageid', 8)->unique();
+            $table->string('message')->nullable();
+            $table->string('passage_text', 500)->nullable();
+            $table->string('reference')->nullable();
+            $table->string('unsplash_id', 64)->nullable();
+            $table->bigInteger('twitter_id')->nullable();
+            //$table->foreign('twitter_id')->references('twitter_id')->on('tweet_history');
             $table->timestamps();
         });
     }

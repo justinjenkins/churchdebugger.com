@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Common\Images;
+use App\Common\VerseSee;
 use Illuminate\Http\Request;
 
 class ImagesController extends Controller
@@ -16,7 +17,7 @@ class ImagesController extends Controller
 
         $image = Image::create_base_image($message, $twitter_id);
 
-        Images::generate($image->message, $image->imageid, false);
+        $new_image = VerseSee::compose_image($image);
 
         return redirect("/images/".$image->imageid);
 
@@ -30,19 +31,18 @@ class ImagesController extends Controller
     public function download(Image $image, Request $request)
     {
 
-        $message = "";
-        $imageid = null;
-
+        // will only happen with request to random.jpg
         if (!$image->exists) {
-            $message = $request->query('message');
-        } else {
-            $message = $image->message;
-            $imageid = $image->imageid;
+            $image = Image::create_base_image($request->query('message'));
         }
 
-        $response = Images::generate($message, $imageid);
+        // @todo this won't work with 'random' unless we create a create a base image before??
 
-        return response($response)->header('Content-Type', 'image/jpg');
+        $new_image = VerseSee::compose_image($image);
+        return Images::render($new_image->imageid);
+
+        //$response = Images::generate($message, $imageid);
+        //return response($response)->header('Content-Type', 'image/jpg');
 
     }
 

@@ -29,7 +29,6 @@ class TwitterReply extends Command
     protected $description = 'Replies to twitter mentions.';
 
     protected $twitter;
-    protected $unsplash;
 
     /**
      * TwitterReply constructor.
@@ -39,7 +38,6 @@ class TwitterReply extends Command
     public function __construct(TwitterService $twitter)
     {
         parent::__construct();
-        $this->unsplash = app()->make('unsplash');
         $this->twitter = $twitter;
     }
 
@@ -97,7 +95,6 @@ class TwitterReply extends Command
 
             TwitterMentionProcess::withChain([
                 new ImageGenerate(
-                    $message,
                     $image
                 ),
                 new TwitterReplier(
