@@ -17,7 +17,7 @@ class ImagesController extends Controller
 
         $image = Image::create_base_image($message, $twitter_id);
 
-        $new_image = VerseSee::compose_image($image);
+        VerseSee::compose_image($image);
 
         return redirect("/images/".$image->imageid);
 
@@ -31,18 +31,17 @@ class ImagesController extends Controller
     public function download(Image $image, Request $request)
     {
 
-        // will only happen with request to random.jpg
+        // this will only happen with request to random.jpg
         if (!$image->exists) {
             $image = Image::create_base_image($request->query('message'));
+            // redirect to the image by imageid
+            return redirect("/images/".$image->imageid.".jpg");
         }
 
-        // @todo this won't work with 'random' unless we create a create a base image before??
+        // this is just a catch all in case the image isn't already composed
+        VerseSee::compose_image($image);
 
-        $new_image = VerseSee::compose_image($image);
-        return Images::render($new_image->imageid);
-
-        //$response = Images::generate($message, $imageid);
-        //return response($response)->header('Content-Type', 'image/jpg');
+        return Images::render($image->imageid);
 
     }
 
