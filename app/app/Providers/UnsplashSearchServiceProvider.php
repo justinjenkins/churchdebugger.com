@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Crew\Unsplash as Unsplash;
 
 
-class UnsplashServiceProvider extends ServiceProvider
+class UnsplashSearchServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,7 +14,7 @@ class UnsplashServiceProvider extends ServiceProvider
      * @return void
      */
     public function register() {
-        $this->app->singleton('unsplash', function ($app) {
+        $this->app->singleton('unsplash-search', function ($app) {
             return new Unsplash\Search;
         });
     }

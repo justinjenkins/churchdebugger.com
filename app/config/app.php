@@ -175,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TwitterServiceProvider::class,
-        App\Providers\UnsplashServiceProvider::class,
+        App\Providers\UnsplashSearchServiceProvider::class,
+        App\Providers\UnsplashPhotoServiceProvider::class,
         App\Providers\TwilioServiceProvider::class,
 
     ],
