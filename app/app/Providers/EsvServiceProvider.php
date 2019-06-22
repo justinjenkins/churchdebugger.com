@@ -13,7 +13,7 @@ class EsvServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token ".env("ESV_TOKEN")]]);
+        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token " . env("ESV_TOKEN")]]);
     }
 
     /**

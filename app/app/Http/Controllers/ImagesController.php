@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\Common\Images;
 use App\Common\VerseSee;
+use App\Image;
 use Illuminate\Http\Request;
 
 class ImagesController extends Controller
@@ -19,7 +19,7 @@ class ImagesController extends Controller
 
         VerseSee::compose_image($image);
 
-        return redirect("/images/".$image->imageid);
+        return redirect("/images/" . $image->imageid);
 
     }
 
@@ -35,7 +35,7 @@ class ImagesController extends Controller
         if (!$image->exists) {
             $image = Image::create_base_image($request->query('message'));
             // redirect to the image by imageid
-            return redirect("/images/".$image->imageid.".jpg");
+            return redirect("/images/" . $image->imageid . ".jpg");
         }
 
         // this is just a catch all in case the image isn't already composed

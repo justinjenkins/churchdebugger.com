@@ -5,12 +5,13 @@ namespace App\Jobs;
 use App\Events\TweetSent;
 use App\Services\Twitter\TwitterService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
-class TwitterReplier implements ShouldQueue {
+class TwitterReplier implements ShouldQueue
+{
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $id;
@@ -41,7 +42,7 @@ class TwitterReplier implements ShouldQueue {
      *
      * @return void
      */
-    public function __construct($id, $screen_name, $text, $media_url=null)
+    public function __construct($id, $screen_name, $text, $media_url = null)
     {
         $this->id = $id;
         $this->screen_name = $screen_name;

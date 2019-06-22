@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Text;
 use App\Common\Twiml;
+use App\Text;
 use Illuminate\Http\Request;
 
 class TextsController extends Controller
 {
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $message = $request->input('Body', null);;
 
@@ -19,8 +20,8 @@ class TextsController extends Controller
 
         $twiml = new Twiml;
 
-        $response = $twiml->respond_with_text("📖",[
-            "media" => request()->getSchemeAndHttpHost()."/images/random.jpg?message=".urlencode($message),
+        $response = $twiml->respond_with_text("📖", [
+            "media" => request()->getSchemeAndHttpHost() . "/images/random.jpg?message=" . urlencode($message),
             "message" => $message
         ]);
 

@@ -2,29 +2,33 @@
 
 namespace App\Services\Twitter;
 
-use Codebird\Codebird;
 use App\Services\Twitter\Exceptions\RateLimitExceededException;
+use Codebird\Codebird;
 
-class CodebirdTwitterService implements TwitterService {
+class CodebirdTwitterService implements TwitterService
+{
 
     protected $client;
 
-    public function __construct(Codebird $client) {
+    public function __construct(Codebird $client)
+    {
         $this->client = $client;
     }
 
-    public function get_mentions($since = null) {
+    public function get_mentions($since = null)
+    {
         $mentions = $this->client->statuses_mentionsTimeline($since ? 'since_id=' . $since : '');
 
         // rate limit handling
-        if ((int) $mentions->rate->remaining === 0) {
+        if ((int)$mentions->rate->remaining === 0) {
             throw new RateLimitExceededException;
         }
 
         return collect($this->reduce_to_tweets($mentions));
     }
 
-    public function send_tweet($text, $in_reply_to=null, $media_ids=null) {
+    public function send_tweet($text, $in_reply_to = null, $media_ids = null)
+    {
         $params = [
             'status' => $text
         ];
@@ -41,7 +45,8 @@ class CodebirdTwitterService implements TwitterService {
 
     }
 
-    public function upload_media_urls($urls) {
+    public function upload_media_urls($urls)
+    {
 
         $media_ids = [];
 
@@ -56,7 +61,8 @@ class CodebirdTwitterService implements TwitterService {
 
     }
 
-    protected function reduce_to_tweets($response) {
+    protected function reduce_to_tweets($response)
+    {
 
         unset($response->rate);
         unset($response->httpstatus);
@@ -65,8 +71,9 @@ class CodebirdTwitterService implements TwitterService {
 
     }
 
-    private function array_to_csv_string($arr) {
-        return implode(",",$arr);
+    private function array_to_csv_string($arr)
+    {
+        return implode(",", $arr);
     }
 
 }

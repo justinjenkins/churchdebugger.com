@@ -2,6 +2,7 @@
 
 namespace App\Services\Twitter\Exceptions;
 
-class RateLimitExceededException extends \Exception {
+class RateLimitExceededException extends \Exception
+{
 
 }

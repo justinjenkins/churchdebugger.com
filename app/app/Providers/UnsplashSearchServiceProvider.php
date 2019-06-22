@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Crew\Unsplash as Unsplash;
+use Illuminate\Support\ServiceProvider;
 
 
 class UnsplashSearchServiceProvider extends ServiceProvider
@@ -13,7 +13,8 @@ class UnsplashSearchServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->app->singleton('unsplash-search', function ($app) {
             return new Unsplash\Search;
         });
@@ -24,9 +25,10 @@ class UnsplashSearchServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         Unsplash\HttpClient::init([
-            'applicationId'	=> env('UNSPLASH_ACCESS_KEY'),
+            'applicationId' => env('UNSPLASH_ACCESS_KEY'),
             'utmSource' => 'Church Debugger Demo'
         ]);
     }

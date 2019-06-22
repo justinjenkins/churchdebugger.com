@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Codebird\Codebird;
-use App\Services\Twitter\TwitterService;
 use App\Services\Twitter\CodebirdTwitterService;
+use App\Services\Twitter\TwitterService;
+use Codebird\Codebird;
 use Illuminate\Support\ServiceProvider;
 
 class TwitterServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class TwitterServiceProvider extends ServiceProvider
     {
         $this->app->singleton(TwitterService::class, function ($app) {
             $codebird = Codebird::getInstance();
-            $codebird->setToken(env('TWITTER_ACCESS_TOKEN'),env('TWITTER_ACCESS_TOKEN_SECRET'));
+            $codebird->setToken(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
             return new CodebirdTwitterService($codebird);
         });
     }
@@ -30,6 +30,6 @@ class TwitterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Codebird::setConsumerKey(env('TWITTER_CONSUMER_KEY'),env('TWITTER_SECRET_KEY'));
+        Codebird::setConsumerKey(env('TWITTER_CONSUMER_KEY'), env('TWITTER_SECRET_KEY'));
     }
 }
