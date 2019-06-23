@@ -71,9 +71,9 @@ class TwitterReply extends Command
 
         $texts = $mentions->map(function ($mention) {
 
-            $text_cleanup = Words::remove_at_mentions($mention->text);
+            $text_cleanup = Words::remove_punctuation($mention->text);
+            $text_cleanup = Words::remove_at_mentions($text_cleanup);
             $text_cleanup = Words::remove_hashtags($text_cleanup);
-            $text_cleanup = Words::remove_punctuation($text_cleanup);
 
             // we could use a "key word" API to try and get a single word to use
             // for now we'll just pick an random word from the tweet

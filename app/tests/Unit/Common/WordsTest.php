@@ -15,7 +15,7 @@ class WordsTest extends TestCase
      *
      * @return void
      */
-    public function testRemove() {
+    public function test_remove_string() {
 
         $string = "foo bar baz barbar";
 
@@ -25,7 +25,7 @@ class WordsTest extends TestCase
     }
 
 
-    public function testRemoveAtMentions() {
+    public function test_remove_at_mentions() {
 
         $string = "@foo foo @bar baz barbar";
 
@@ -45,7 +45,7 @@ class WordsTest extends TestCase
 
     }
 
-    public function testRemoveHashtags() {
+    public function test_remove_hashtags() {
 
         $string = "#4see foo bar #baz barbar # foo #foo";
 
@@ -64,7 +64,7 @@ class WordsTest extends TestCase
 
     }
 
-    public function testRemovePunctuation() {
+    public function test_remove_punctuation() {
 
         $string = ".@vers!!es'ee #4se:e. foo bar, #b,az bar'bar;; # fo&o! #foo";
 
