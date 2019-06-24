@@ -20,7 +20,7 @@ class CreateTwitterMentionsTable extends Migration
             $table->string('tweet');
             $table->dateTimeTz('tweet_created_at');
             $table->json('raw_tweet');
-            $table->dateTimeTz('processed_at');
+            $table->dateTimeTz('processed_at')->nullable();
             $table->timestamps();
         });
     }
