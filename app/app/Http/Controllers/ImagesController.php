@@ -33,6 +33,11 @@ class ImagesController extends Controller
 
         // this will only happen with request to random.jpg
         if (!$image->exists) {
+
+            if (!$request->query('message')) {
+                return abort(400, 'No `message` parameter.');
+            }
+
             $image = Image::create_base_image($request->query('message'));
             // redirect to the image by imageid
             return redirect("/images/" . $image->imageid . ".jpg");
@@ -41,7 +46,7 @@ class ImagesController extends Controller
         // this is a catch all in case the image isn't already composed
         VerseSee::compose_image($image);
 
-        return Images::render($image->imageid);
+        return response()->file(Images::get_file_and_path($image->imageid));
 
     }
 

@@ -94,16 +94,15 @@ class Images
 
     }
 
-    public static function render(string $imageid)
-    {
+    public static function get_file_and_path(string $imageid) {
 
         $image_name = "image-{$imageid}";
 
         if (file_exists(public_path() . "/cache/{$image_name}.jpg")) {
-            header('Content-Type: image/jpg');
-            return readfile(public_path() . "/cache/{$image_name}.jpg");
+            return public_path() . "/cache/{$image_name}.jpg";
         }
 
+        return null;
     }
 
     private static function draw_silhouette(string $text = null, array $params = array())

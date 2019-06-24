@@ -26,7 +26,7 @@ class ImagesControllerTest extends TestCase
 
     public function test_redirect_of_random_dot_jpg()
     {
-        $this->get('/images/random.jpg')->assertStatus(500);
+        $this->get('/images/random.jpg')->assertStatus(400);
 
         $response = $this->get('/images/random.jpg?message=lamb');
         $response->assertStatus(302)
@@ -41,6 +41,105 @@ class ImagesControllerTest extends TestCase
 
         // should match a 8 char .jpg file name
         $this->assertRegExp('/\/images\/([a-zA-Z0-9]{8})*\.jpg/', $redirect_url_parsed["path"]);
+
+    }
+
+    /**
+     * Case where we get back a proper passage, but no background image.
+     *
+     * This will not be able to get a background (unless unsplash changes so we expect a reference but no background)
+     */
+    public function test_random_dot_jpg_no_background_returned()
+    {
+
+        $response = $this->followingRedirects()->get('/images/random.jpg?message=gnashing');
+
+        $response->assertStatus(200);
+
+        $imageid = self::get_imageid_from_url(url()->current());
+
+        $image = Image::where('imageid', $imageid)->first();
+
+        $this->assertNotNull($image,
+            "Database: Cannot return Image from database");
+
+        $this->assertEquals("gnashing",$image->message,
+            "Database: `message` is not set to 'gnashing'");
+
+        $this->assertNull($image->twitter_id);
+
+        $this->assertNull($image->unsplash_id);
+
+        $this->assertNotNull($image->reference,
+            "Database: `reference` is null");
+
+        $this->assertNotNull($image->passage_text,
+            "Database: `passage_text` is null");
+
+    }
+
+    /**
+     * Case where there is no passage returned, but we do get a background image.
+     *
+     * This should return an background and a passage (it will use the word "error" for the verse)
+     */
+    public function test_random_dot_jpg_no_passage_returned()
+    {
+
+        $response = $this->followingRedirects()->get('/images/random.jpg?message=foo');
+        $response->assertStatus(200);
+
+        $imageid = self::get_imageid_from_url(url()->current());
+
+        $image = Image::where('imageid', $imageid)->first();
+
+        $this->assertNotNull($image,
+            "Database: Cannot return Image from database");
+
+        $this->assertEquals("foo",$image->message,
+            "Database: `message` is not set to 'foo'");
+
+        $this->assertNull($image->twitter_id);
+
+        $this->assertNotNull($image->unsplash_id,
+            "Database: `unsplash_id` is null");
+
+        $this->assertNotNull($image->reference,
+            "Database: `reference` is null");
+
+        $this->assertNotNull($image->passage_text,
+            "Database: `passage_text` is null");
+
+    }
+
+    /**
+     * Case where there is a gibberish message sent.
+     *
+     * This should use the default background and get a passage (using the word "error" for the verse)
+     */
+    public function test_random_dot_jpg_no_passage_and_no_background_returned()
+    {
+
+        $response = $this->followingRedirects()->get('/images/random.jpg?message=aasdfhadsfhs');
+        $response->assertStatus(200);
+
+        $imageid = self::get_imageid_from_url(url()->current());
+
+        $image = Image::where('imageid', $imageid)->first();
+
+        $this->assertNotNull($image,
+            "Database: Cannot return Image from database");
+
+        $this->assertEquals("aasdfhadsfhs",$image->message,
+            "Database: `message` is not set to 'foo'");
+
+        $this->assertNull($image->unsplash_id);
+
+        $this->assertNotNull($image->reference,
+            "Database: `reference` is null");
+
+        $this->assertNotNull($image->passage_text,
+            "Database: `passage_text` is null");
 
     }
 
@@ -63,18 +162,22 @@ class ImagesControllerTest extends TestCase
         $imageid = self::get_imageid_from_url($redirect_url);
 
         $image = Image::where('imageid', $imageid)->first();
+
         $this->assertNotNull($image,
             "Database: Cannot return Image from database");
 
         $this->assertEquals("lamb",$image->message,
             "Database: `message` is not set to '{self::MESSAGE}'");
+
         $this->assertEquals("1",$image->twitter_id,
             "Database:  `twitter_id` is not set to '{self::TWITTER_ID}'");
 
         $this->assertNotNull($image->unsplash_id,
             "Database: `unsplash_id` is null");
+
         $this->assertNotNull($image->reference,
             "Database: `reference` is null");
+
         $this->assertNotNull($image->passage_text,
             "Database: `passage_text` is null");
 
@@ -101,7 +204,7 @@ class ImagesControllerTest extends TestCase
         $ex = explode("/", $url_parts["path"]);
         $imageid = end($ex);
 
-        return $imageid;
+        return basename($imageid, ".jpg");
     }
 
 
