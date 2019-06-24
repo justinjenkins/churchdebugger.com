@@ -22,3 +22,6 @@ Route::get('/{image}', 'ImagesController@show')->where('image', '^[a-zA-Z0-9]{8}
 // return just the image.
 Route::get('/images/{image}.jpg', 'ImagesController@download')->where('image', '^[a-zA-Z0-9]{8}$');
 Route::get('/images/random.jpg', 'ImagesController@download');
+
+Route::post('images', 'ImagesController@store');
+

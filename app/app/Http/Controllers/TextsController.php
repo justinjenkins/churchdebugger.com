@@ -12,7 +12,7 @@ class TextsController extends Controller
     public function store(Request $request)
     {
 
-        $message = $request->input('Body', null);;
+        $message = $request->input('Body', null);
 
         $text = new Text;
         $text->message = $message;

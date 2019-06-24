@@ -12,14 +12,14 @@ class ImagesController extends Controller
     public function store(Request $request)
     {
 
-        $message = $request->query('message');
-        $twitter_id = $request->query('tid');
+        $message = $request->input('message', "");
+        $twitter_id = $request->input('twitter_id', null);
 
         $image = Image::create_base_image($message, $twitter_id);
 
         VerseSee::compose_image($image);
 
-        return redirect("/images/" . $image->imageid);
+        return redirect("/" . $image->imageid);
 
     }
 
@@ -38,7 +38,7 @@ class ImagesController extends Controller
             return redirect("/images/" . $image->imageid . ".jpg");
         }
 
-        // this is just a catch all in case the image isn't already composed
+        // this is a catch all in case the image isn't already composed
         VerseSee::compose_image($image);
 
         return Images::render($image->imageid);
