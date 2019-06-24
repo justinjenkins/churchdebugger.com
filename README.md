@@ -57,4 +57,4 @@ VerseSee is hosted on AWS (Amazon Web Services), using a `t2.medium` instance, w
 ### Developer Notes
 
 #### Unit Tests
-**Note**: In order to run the tests you'll need to setup seperate test database and set it up in `.env.testing` *otherwise your local databse will be "refreshed"* when you run the tests.
+**Note**: In order to run the tests you'll need to setup a **seperate test database** and set it up in `.env.testing` *otherwise your local databse will be "refreshed"* when you run the tests.
