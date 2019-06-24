@@ -34,9 +34,13 @@ class VerseSee
         // lookup a background image and save it to the Image
         if (!$image->unsplash_id) {
             $photo = Unsplash::photo_from_message($message);
-            $background_url = Unsplash::image_url_from_photo($photo);
-            $image->unsplash_id = $photo["id"];
-            $image->save();
+            if (is_array($photo)) {
+                $background_url = Unsplash::image_url_from_photo($photo);
+                $image->unsplash_id = $photo["id"];
+                $image->save();
+            } elseif (is_string($photo)) {
+                $background_url = $photo;
+            }
         }
 
         // if we have a background image id already get the photo url from the id
