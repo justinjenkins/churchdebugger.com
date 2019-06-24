@@ -15,7 +15,7 @@ class CreateTwitterMentionsTable extends Migration
     {
         Schema::create('twitter_mentions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('twitter_id');
+            $table->bigInteger('twitter_id')->unique();
             $table->string('username');
             $table->string('tweet');
             $table->dateTimeTz('tweet_created_at');

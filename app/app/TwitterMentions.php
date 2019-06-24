@@ -22,7 +22,7 @@ class TwitterMentions extends Model
 
     public function scopeLastProcessed($query)
     {
-        return $query->whereNotNull('processed_at')->orderBy('twitter_id', 'desc')->first();
+        return $query->whereNotNull('processed_at')->orderBy('twitter_id', 'desc');
     }
 
     public function scopeLatestUnprocessedFirst($query)
