@@ -17,7 +17,7 @@ class Unsplash
 
         $photo = app()->make('unsplash-photo')->find($id);
 
-        return Unsplash::fix_image_url_dimentions($photo->download(), $params);
+        return Unsplash::fix_image_url_dimensions($photo->download(), $params);
 
     }
 
@@ -50,13 +50,13 @@ class Unsplash
 
         $params = $params + $defaults;
 
-        return Unsplash::fix_image_url_dimentions($photo["urls"]["full"], $params);
+        return Unsplash::fix_image_url_dimensions($photo["urls"]["full"], $params);
 
         //return $photo["urls"]["full"]."&w={$params["width"]}&h={$params["height"]}&fit={$params["fit"]}";
 
     }
 
-    public static function fix_image_url_dimentions(string $url, array $params)
+    public static function fix_image_url_dimensions(string $url, array $params)
     {
 
         $query_string_names = [
@@ -72,27 +72,16 @@ class Unsplash
         }
 
         $url_parsed = parse_url($url);
+
         $url_query_string = $url_parsed["query"];
+
         parse_str($url_query_string, $query_string);
+
         $query_string = $params + $query_string;
+
         $url_parsed["query"] = http_build_query($query_string);
 
-        function build_url(array $parts)
-        {
-            return (isset($parts['scheme']) ? "{$parts['scheme']}:" : '') .
-                ((isset($parts['user']) || isset($parts['host'])) ? '//' : '') .
-                (isset($parts['user']) ? "{$parts['user']}" : '') .
-                (isset($parts['pass']) ? ":{$parts['pass']}" : '') .
-                (isset($parts['user']) ? '@' : '') .
-                (isset($parts['host']) ? "{$parts['host']}" : '') .
-                (isset($parts['port']) ? ":{$parts['port']}" : '') .
-                (isset($parts['path']) ? "{$parts['path']}" : '') .
-                (isset($parts['query']) ? "?{$parts['query']}" : '') .
-                (isset($parts['fragment']) ? "#{$parts['fragment']}" : '');
-        }
-
-
-        return build_url($url_parsed);
+        return Url::build($url_parsed);
 
     }
 
