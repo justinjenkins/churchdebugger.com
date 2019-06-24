@@ -28,7 +28,7 @@ class UnsplashSearchServiceProvider extends ServiceProvider
     public function boot()
     {
         Unsplash\HttpClient::init([
-            'applicationId' => env('UNSPLASH_ACCESS_KEY'),
+            'applicationId' => config('services.unsplash.access_key'),
             'utmSource' => 'Church Debugger Demo'
         ]);
     }

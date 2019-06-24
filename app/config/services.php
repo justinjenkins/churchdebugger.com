@@ -44,4 +44,33 @@ return [
         ],
     ],
 
+    'twitter' => [
+        'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+        'secret_key' => env('TWITTER_SECRET_KEY'),
+        'access_token' => env('TWITTER_ACCESS_TOKEN'),
+        'access_token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),
+    ],
+
+    'unsplash' => [
+        'appid' => env('UNSPLASH_APPLICATION_ID'),
+        'access_key' => env('UNSPLASH_ACCESS_KEY'),
+        'secret_key' => env('UNSPLASH_SECRET_KEY'),
+    ],
+
+    'twilio' => [
+        'default_phone' => env('TWILIO_DEFAULT_PHONE'),
+        'sid' => env('TWILIO_SID'),
+        'token' => env('TWILIO_TOKEN'),
+        'test_sid' => env('TWILIO_TEST_SID'),
+        'test_token' => env('TWILIO_TEST_TOKEN'),
+    ],
+
+    'esv' => [
+        'token' => env('ESV_TOKEN'),
+    ],
+
+    'apibible' => [
+        'token' => env('APIBIBLE_TOKEN'),
+    ],
+
 ];

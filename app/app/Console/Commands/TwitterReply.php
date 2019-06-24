@@ -87,7 +87,7 @@ class TwitterReply extends Command
 
             $image = Image::create_base_image($message, $mention->id);
 
-            $image_url_to_attach = env("APP_URL") . "/images/{$image->imageid}.jpg";
+            $image_url_to_attach = config('app.url') . "/images/{$image->imageid}.jpg";
 
             // we need to generate the image first and cache it
             // this is because Twitter will timeout if the image

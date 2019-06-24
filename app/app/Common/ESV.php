@@ -18,7 +18,7 @@ class ESV
 
     public function __construct()
     {
-        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token " . env("ESV_TOKEN")]]);
+        $this->client = new GuzzleHttp\Client(['headers' => ["Authorization" => "Token " . config('services.esv.token')]]);
     }
 
     public function passage_search(string $message, array $params = [])

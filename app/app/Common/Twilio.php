@@ -16,7 +16,7 @@ class Twilio
     {
 
         $defaults = array(
-            "from" => env("TWILIO_DEFAULT_PHONE"),
+            "from" => config('services.twilio.default_phone'),
             "body" => "🖐"
         );
 
