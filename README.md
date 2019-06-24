@@ -52,3 +52,9 @@ To do all this VerseSee uses the PHP framework [Laravel](https://laravel.com/) u
 **AWS**
 
 VerseSee is hosted on AWS (Amazon Web Services), using a `t2.medium` instance, which is why it's a *little* slow to generate images sometimes. If this were a real, production server it'd be a lot faster.
+
+
+### Developer Notes
+
+#### Unit Tests
+**Note**: In order to run the tests you'll need to setup seperate test database and set it up in `.env.testing` *otherwise your local databse will be "refreshed"* when you run the tests.
