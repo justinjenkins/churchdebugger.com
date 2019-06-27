@@ -18,6 +18,14 @@ https://versesee.com/images/random.jpg?message=lamb
 
 This will use the word `lamb` to find a random image and bible verse related to the word lamb.
 
+*Note: This is generally not meant to be publicly used.*
+
+### Timeline (BETA)
+
+The timeline shows the latest versesee images in a responsive format.
+
+https://versesee.com/timeline
+
 ### How does it work?
 
 You can use VerseSee via a text message or via twitter. For example, you can text your word to the number provided and within a minute it will text you back a dynamic image just for you!
