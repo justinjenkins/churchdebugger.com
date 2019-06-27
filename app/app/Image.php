@@ -4,6 +4,7 @@ namespace App;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use App\Common\Images;
 
 class Image extends Model
 {
@@ -61,6 +62,33 @@ class Image extends Model
         $image->save();
 
         return $image;
+    }
+
+    /**
+     * @param int $type
+     * @return string Returns the file name and path together
+     */
+    public function file_and_path(int $type=Images::TYPE_FULL_COMPOSITE)
+    {
+
+        $image_filename = $this->filename($type);
+
+        return public_path() . "/cache/{$image_filename}";
+
+    }
+
+    public function filename(int $type=Images::TYPE_FULL_COMPOSITE)
+    {
+        $image_name = "image-{$this->imageid}";
+        $file_type = "jpg";
+
+        if ($type == Images::TYPE_OVERLAY_ONLY) {
+            $image_name = "image-overlay-{$this->imageid}";
+            $file_type = "png";
+        }
+
+        return "{$image_name}.{$file_type}";
+
     }
 
 }

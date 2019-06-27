@@ -17,11 +17,16 @@ Route::get('/', function () {
 
 Route::match(['get', 'post'], '/webhooks/twilio/message', 'TextsController@store');
 
-Route::get('/{image}', 'ImagesController@show')->where('image', '^[a-zA-Z0-9]{8}$');
+//Route::get('/random', 'ImagesController@random');
+
+Route::get('/timeline', 'ImagesController@timeline');
 
 // return just the image.
 Route::get('/images/{image}.jpg', 'ImagesController@download')->where('image', '^[a-zA-Z0-9]{8}$');
+Route::get('/images/{image}/overlay.png', 'ImagesController@overlay')->where('image', '^[a-zA-Z0-9]{8}$');
 Route::get('/images/random.jpg', 'ImagesController@download');
 
 Route::post('images', 'ImagesController@store');
+
+Route::get('/{image}', 'ImagesController@show')->where('image', '^[a-zA-Z0-9]{8}$');
 

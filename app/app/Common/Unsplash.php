@@ -1,9 +1,33 @@
 <?php
 
 namespace App\Common;
+use Illuminate\Support\Facades\Cache;
 
 class Unsplash
 {
+
+    public static function photo(string $id)
+    {
+
+        $key = "unsplash-{$id}";
+
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $photo = app()->make('unsplash-photo')->find($id);
+
+        Cache::add($key, $photo, 7200);
+
+        return $photo;
+
+    }
+
+    public static function photo_html_url_from_id(string $id)
+    {
+        // @todo switch this to come from the api directly
+        return "https://unsplash.com/photos/{$id}?utm_source=Church+Debugger+Demo&utm_medium=referral&utm_campaign=api-credit";
+    }
 
     public static function photo_url_from_id(string $id, array $params = array())
     {
@@ -15,13 +39,13 @@ class Unsplash
 
         $params = $params + $defaults;
 
-        $photo = app()->make('unsplash-photo')->find($id);
+        $photo = Unsplash::photo($id);
 
         return Unsplash::fix_image_url_dimensions($photo->download(), $params);
 
     }
 
-    public static function photo_from_message($message)
+    public static function photo_from_message(string $message)
     {
 
         $photo = "https://versesee.com/default_image.jpg";

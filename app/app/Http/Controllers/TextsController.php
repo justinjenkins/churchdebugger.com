@@ -21,7 +21,7 @@ class TextsController extends Controller
         $twiml = new Twiml;
 
         $response = $twiml->respond_with_text("📖", [
-            "media" => request()->getSchemeAndHttpHost() . "/images/random.jpg?message=" . urlencode($message),
+            "media" => request()->getSchemeAndHttpHost() . "/images/random.jpg?message=" . urlencode(trim($message)),
             "message" => $message
         ]);
 

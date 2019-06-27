@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http;
 
 use App\Image;
+use App\Common\Images;
 use function Psy\debug;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -22,7 +23,29 @@ class ImagesControllerTest extends TestCase
      */
 
     const MESSAGE = "lamb";
-    const TWITTER_ID = "1";
+    const TWITTER_ID = "1143789780158652416";
+
+    public function test_file_and_path() {
+
+        $this->followingRedirects()->get('/images/random.jpg?message=gnashing')->assertStatus(200);
+
+        $imageid = self::get_imageid_from_url(url()->current());
+
+        $image = Image::where('imageid', $imageid)->first();
+
+        // check JPG filename
+        $filename_jpg = $image->filename();
+        $this->assertEquals("image-{$imageid}.jpg", $filename_jpg);
+
+        // check PNG filename
+        $filename_png = $image->filename(Images::TYPE_OVERLAY_ONLY);
+        $this->assertEquals("image-overlay-{$imageid}.png", $filename_png);
+
+        // check file and path for JPG
+        $file_and_path = $image->file_and_path();
+        $this->assertEquals(public_path() . "/cache/{$filename_jpg}",$file_and_path);
+
+    }
 
     public function test_redirect_of_random_dot_jpg()
     {
@@ -166,10 +189,10 @@ class ImagesControllerTest extends TestCase
         $this->assertNotNull($image,
             "Database: Cannot return Image from database");
 
-        $this->assertEquals("lamb",$image->message,
+        $this->assertEquals(self::MESSAGE,$image->message,
             "Database: `message` is not set to '{self::MESSAGE}'");
 
-        $this->assertEquals("1",$image->twitter_id,
+        $this->assertEquals(self::TWITTER_ID,$image->twitter_id,
             "Database:  `twitter_id` is not set to '{self::TWITTER_ID}'");
 
         $this->assertNotNull($image->unsplash_id,
@@ -194,7 +217,7 @@ class ImagesControllerTest extends TestCase
 
         $imageid = self::get_imageid_from_url(url()->current());
 
-        $response->assertSee('<img src="/images/'.$imageid.'.jpg" />');
+        $response->assertSee('<img class="image image-card-hero" width="1080" height="720" src="/images/'.$imageid.'.jpg" />');
 
     }
 
