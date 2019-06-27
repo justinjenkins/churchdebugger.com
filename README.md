@@ -20,6 +20,12 @@ This will use the word `lamb` to find a random image and bible verse related to 
 
 *Note: This is generally not meant to be publicly used.*
 
+### Verse of the Day
+
+You can see a new Verse of the Day each day (using the [BibleGateway](https://www.biblegateway.com/) VOTD)
+
+https://versesee.com/daily
+
 ### Timeline (BETA)
 
 The timeline shows the latest versesee images in a responsive format.
