@@ -36,5 +36,9 @@
             </ul>
         </nav>
 
+        @if ($type == "votd")
+            <h2 class="title is-2 has-text-grey-light">Verse of the Day</h2>
+        @endif
+
         @include('partials.image')
     @endsection

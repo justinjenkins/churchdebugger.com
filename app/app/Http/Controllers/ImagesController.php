@@ -43,7 +43,9 @@ class ImagesController extends Controller
             $photo_url = Unsplash::photo_html_url_from_id($image->unsplash_id);
         }
 
-        return view('images.show', compact('image', 'photo_url'));
+        $type = "single";
+
+        return view('images.show', compact('image', 'type', 'photo_url'));
     }
 
     public function download(Image $image, Request $request)
@@ -68,37 +70,23 @@ class ImagesController extends Controller
 
     }
 
-    /*
-    public function random() {
-        // should we make this generate a new random image or pick an existing one?
-        // maybe either?
+    public function daily(string $lang=null) {
+        $image = Image::votd($lang);
+        $type = "votd";
+        return view('images.show', compact('image','type'));
     }
 
-    public function daily() {
-        // daily bible verse
-    }
-    */
 
     public function timeline() {
-        $images = Image::orderBy('id', 'desc')->paginate(10);
-        return view('images.timeline', ['images' => $images]);
+        $images = Image::orderBy('id', 'desc')->paginate(15);
+        $type = "timeline";
+        return view('images.timeline', compact('images', 'type'));
     }
 
     public function overlay(Image $image)
     {
         VerseSee::compose_image($image, [ "type" => Images::TYPE_OVERLAY_ONLY ]);
-
         return response()->file($image->file_and_path(Images::TYPE_OVERLAY_ONLY));
-    }
-
-    /**
-     * Failed validation disable redirect
-     *
-     * @param Validator $validator
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 
 }

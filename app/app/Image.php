@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Common\Biblegateway;
+use App\Common\VerseSee;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use App\Common\Images;
+
+use Illuminate\Support\Facades\Cache;
 
 class Image extends Model
 {
@@ -60,6 +64,34 @@ class Image extends Model
         $image->message = $message;
         $image->twitter_id = $twitter_id;
         $image->save();
+
+        return $image;
+    }
+
+    public static function votd(string $lang=null)
+    {
+
+        if (!$lang) { $lang = "eng"; }
+
+        $key = "votd-{$lang}-".date("Ymd");
+
+        $verse = Cache::remember($key, 86400, function () {
+            $biblegateway = new Biblegateway;
+            $votd = $biblegateway->votd();
+
+            $image = self::create_base_image("bible");
+            $image->passage_text = $votd->content;
+            $image->reference = $votd->reference;
+            $image->save();
+
+            $votd->imageid = $image->imageid;
+
+            return $votd;
+        });
+
+        $image = Image::where('imageid', $verse->imageid)->first();
+
+        VerseSee::compose_image($image);
 
         return $image;
     }
