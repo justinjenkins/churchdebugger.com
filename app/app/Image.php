@@ -17,6 +17,7 @@ class Image extends Model
         'message',
         'passage_text',
         'reference',
+        'translation',
         'unsplash_id',
         'twitter_id'
     ];

@@ -19,7 +19,8 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/js/single.js"></script>
     <link rel="stylesheet" href="/css/single.css" />
 </head>
 

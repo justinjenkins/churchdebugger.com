@@ -70,14 +70,21 @@ class ImagesController extends Controller
 
     }
 
-    public function daily(string $lang=null) {
+    public function daily(string $lang=null)
+    {
         $image = Image::votd($lang);
         $type = "votd";
         return view('images.show', compact('image','type'));
     }
 
+    public function seek()
+    {
+        $type = "seek";
+        return view('images.seek', compact('type'));
+    }
 
-    public function timeline() {
+    public function timeline()
+    {
         $images = Image::orderBy('id', 'desc')->paginate(15);
         $type = "timeline";
         return view('images.timeline', compact('images', 'type'));
