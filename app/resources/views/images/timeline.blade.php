@@ -8,7 +8,8 @@
 
     <nav class="breadcrumb is-large is-centered" aria-label="breadcrumbs">
         <ul>
-            <li><a class="has-text-grey-dark" href="/timeline"><span class="icon"><i class="fas fa-book-open"></i></span><span>Timeline</span></a></li>
+            <li class="is-active has-text-weight-semibold"><a class="has-text-grey-dark" href="/timeline"><span class="icon"><i class="fas fa-book-open"></i></span><span>Timeline</span></a></li>
+            <li><a class="has-text-grey-dark" href="/seek"><span class="icon"><i class="fas fa-search"></i></span><span>Seek</span></a></li>
         </ul>
     </nav>
 
