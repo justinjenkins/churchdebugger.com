@@ -17,7 +17,7 @@ class Unsplash
 
         $photo = app()->make('unsplash-photo')->find($id);
 
-        Cache::add($key, $photo, 7200);
+        Cache::add($key, $photo, 172800);
 
         return $photo;
 
