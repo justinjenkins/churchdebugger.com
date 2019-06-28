@@ -8,12 +8,14 @@ class Biblegateway
 {
 
     protected $client;
+    protected $version;
 
     private $base_uri = "https://www.biblegateway.com/";
 
-    public function __construct()
+    public function __construct(string $version="ESV")
     {
         $this->client = new GuzzleHttp\Client();
+        $this->version = $version;
     }
 
     /**
