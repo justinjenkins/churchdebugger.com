@@ -48,7 +48,7 @@ class Biblegateway
         $contents = json_decode($response->getBody()->getContents());
 
         if ($response->getStatusCode() == 200) {
-            $verse = $contents->votd;
+            $verse = strip_tags($contents->votd);
         }
 
         return $verse;
