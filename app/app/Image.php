@@ -81,7 +81,7 @@ class Image extends Model
             $votd = $biblegateway->votd();
 
             $image = self::create_base_image("bible");
-            $image->passage_text = $votd->content;
+            $image->passage_text = strip_tags($votd->content);
             $image->reference = $votd->reference;
             $image->save();
 
