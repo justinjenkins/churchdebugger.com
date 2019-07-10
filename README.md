@@ -1,4 +1,4 @@
-# Welcome to the Church Debugger
+# Welcome
 
 This is a placeholder for fun little projects by me, [Justin Jenkins](<https://www.linkedin.com/in/thejustinjenkins/>).
 
