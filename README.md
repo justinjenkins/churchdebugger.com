@@ -12,6 +12,12 @@ VerseSee is bot that will respond to a word sent to it with an image with a Bibl
 
 <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-7.jpg?raw=true" width="217"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-5.jpg?raw=true" width="217"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-8.jpg?raw=true" width="217"> <img src="https://github.com/justinjenkins/churchdebugger.com/blob/develop/app/public/examples/example-6.jpg?raw=true" width="217"> 
 
+### Timeline (BETA)
+
+The timeline shows the latest versesee images in a responsive format.
+
+https://versesee.com/timeline
+
 ### Basic Example
 
 https://versesee.com/images/random.jpg?message=lamb
@@ -25,12 +31,6 @@ This will use the word `lamb` to find a random image and bible verse related to 
 You can see a new Verse of the Day each day (using the [BibleGateway](https://www.biblegateway.com/) VOTD)
 
 https://versesee.com/daily
-
-### Timeline (BETA)
-
-The timeline shows the latest versesee images in a responsive format.
-
-https://versesee.com/timeline
 
 ### How does it work?
 
